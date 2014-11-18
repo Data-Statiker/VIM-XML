@@ -10,4 +10,4 @@ VIM-XML is a script to expand yor XML File, so every element is in one line.
 
 ### Warning
 If the content between a beginning and ending tag has spaces at the beginning, the spaces at the beginning will be deleted.
-Example: <test>    Test data set</test> --> <test>Test data set</test>
+Example: \<test\>    Test data set\</test\> --> \<test\>Test data set\</test\>
