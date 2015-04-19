@@ -1,0 +1,204 @@
+" vim: filetype=help foldmethod=marker foldmarker=<<<,>>> nomodifiable readonly
+*xmlexpander.txt*   For Vim version 7.4.  Last change: 2015 Apr 18
+
+
+                	  VIM REFERENCE MANUAL 
+                                by 
+                           Data Statiker
+
+	  	XMLExpander plugin "Pretty Printer" (xmlexpander.vim) manual
+	  	xmlexpander.vim version 0.3
+
+For instructions on installing this file, type
+	:help add-local-help
+|add-local-help| inside Vim.
+
+Github: https://github.com/Data-Statiker/VIM-XML
+
+*xmlexpander* *xmlexpander.vim* *xml_expander* *xml_exp.vim* *xmlexp*
+
+1.  Getting Started			      |xmlexpander-getting-started|
+2.  Whats New   			      |xmlexpander-new|
+3.  Overview				      |xmlexpander-overview|
+4.  Installation                              |xmlexpander-install|
+5.  Menu                                      |xmlexpander-menu|
+6.  Example                                   |xmlexpander-example|
+7.  Mapping                                   |xmlexpander-mapping|
+
+{Vi does not have any of this}
+
+==============================================================================
+1. Getting Started				      *xmlexpander-getting-started*
+
+With the XMLExpander extension plugin for vim you can make your XML file
+clear. The XMLExpander is a pretty printer for XML.
+
+When you have the problem that your xml files are e.g. in one line or have not
+clear insertions this plugin could help you. After running the XMLExpander
+every opening and ending tag is in one line and have clear insertions.
+
+First install the plugin: |xmlexpander-install|
+
+To run the XMLExpander do the following:
+- load the input XML file
+- execute the XMLExpander: menu Plugin->XMLExpander <run>
+
+Now you have a pretty printed XML file (in the same VIM window!).
+
+Warning:
+The XML File must be syntactical correct! The script do not check this.
+
+==============================================================================
+2.  Whats New					       *xmlexpander-new*
+
+Version 0.3
+*	New name: xmlexpander
+*	Redefine functions and variables (xmlexpander)
+*	New function xmlexpander#isContentText(text) to check if a text has to be harmonized
+
+==============================================================================
+3. Overview					       *xmlexpander-overview*
+
+With the XMLExpander extension plugin for vim you can make your XML file
+clear. The XMLExpander is a pretty printer for XML.
+
+When you have the problem that your xml files are e.g. in one line or have not
+clear insertions this plugin could help you. After running the XMLExpander
+every opening and ending tag is in one line and have clear insertions.
+
+To run the XMLExpander do the following:
+- load the input XML file
+- execute the XMLExpander: menu Plugin->XMLExpander <run>
+
+Now you have a pretty printed XML file (in the same VIM window!).
+
+The XML File must be syntactical correct! The script do not check this.
+
+You can start the XMLExpander in the menu (Plugin->XMLExpander) or you can
+call the function xmlexpander#expand().
+
+   :call xmlexpander#expand()
+
+The XMLExpander read the XML in the current window and override the original
+XML with the pretty printed XML.
+
+==============================================================================
+4. Installation					*xmlexpander-install*
+
+VIMBALL:
+*********
+Download the vimball file xmlexpander.vmb from:
+http://www.vim.org/
+
+Install the vimball file with VIM
+1 Download the file xmlexpander.vmb
+2 vim path/xmlexpander.vmb
+3 :so %
+4 :q
+
+Now you have the menu Plugin->XMLExpander <Run>
+
+HELP FILE:
+***********
+To activate the helpfile in VIM type in command mode:
+ :helptags ~/.vim/doc
+ OR (Windows)
+ :helptags C:\Users\YourUsername\vimfiles\doc
+
+Then you can open the helpfile with ':help xmlexpander'
+
+GITHUB:
+*********
+GITHUB Repository:
+https://github.com/Data-Statiker/VIM-XML
+
+When you have the files from GITHUB:
+Copy the files of the folders 'autoload', 'doc' and 'plugin' to your
+local vimfiles:
+ ~/.vim/doc
+ OR (Windows)
+ C:\Users\YourUsername\vimfiles\doc
+
+==============================================================================
+5.  Menu					       *xmlexpander-menu*
+
+Plugin->XMLExpander <run>
+When the script is installed it exists the menu "Plugin->XMLExpander <run>".
+With this menu entry you can start the script.
+
+==============================================================================
+6.  Example					       *xmlexpander-example*
+
+Example 1:
+***********
+
+Example of an XML before running the XMLExpander: 
+<?xml/><? some text/><Test id="First"><Testcase><TA id="1">one</TB>  | line 1	
+<TB>two</TB></Testcase><Testcase>	<TA>one</TB><TB>two</TB>     | line 2
+</Testcase>  <Testcase>    three</Testcase><Testcase/></Test>        | line 3
+
+The XML after running the XMLExpander looks like this:
+<?xml/>                                                              | line 1
+<? some text/>                                                       | line 2
+<Test id="First">                                                    | line 3
+	<Testcase>                                                   | line 4
+		<TA id="1">one</TB>                                  | line 5
+		<TB>two</TB>                                         | line 6
+	</Testcase>                                                  | line 7
+	<Testcase>                                                   | line 8
+		<TA>one</TB>                                         | line 9
+		<TB>two</TB>                                         | line 10
+	</Testcase>                                                  | line 11
+	<Testcase>    three</Testcase>                               | line 12
+	<Testcase/>                                                  | line 13
+</Test>                                                              | line 14
+
+Example 2:
+***********
+
+Example of an XML before running the XMLExpander:
+<?xml/>                                                              | line 1
+<? some text/>                                                       | line 2
+<Test id="First">                                                    | line 3
+<Testcase>                                                           | line 4
+<TA id="1">one</TB>                                                  | line 5
+<TB>two</TB>                                                         | line 6
+</Testcase>                                                          | line 7
+<Testcase>                                                           | line 8
+<TA>one</TB>                                                         | line 9
+<TB>two</TB>                                                         | line 10
+</Testcase>                                                          | line 11
+<Testcase>    three</Testcase>                                       | line 12
+<Testcase/>                                                          | line 13
+</Test>                                                              | line 14
+
+The XML after running the XMLExpander looks like this:
+<?xml/>                                                              | line 1
+<? some text/>                                                       | line 2
+<Test id="First">                                                    | line 3
+	<Testcase>                                                   | line 4
+		<TA id="1">one</TB>                                  | line 5
+		<TB>two</TB>                                         | line 6
+	</Testcase>                                                  | line 7
+	<Testcase>                                                   | line 8
+		<TA>one</TB>                                         | line 9
+		<TB>two</TB>                                         | line 10
+	</Testcase>                                                  | line 11
+	<Testcase>    three</Testcase>                               | line 12
+	<Testcase/>                                                  | line 13
+</Test>                                                              | line 14
+
+==============================================================================
+7.  Mapping					       *xmlexpander-mapping*
+
+You can define one key to start the XMLExpander Plugin.
+
+Add the following line to your configuration file _vimrc to set the
+key "-" for starting the script:
+    
+     nnoremap <silent> -  :<C-U>call xmlexpander#expand() <CR>
+
+When you want to define another key replace the "-" with your favourite key.
+
+==============================================================================
+vim:tw=78:fo=tcq2:ts=8:ft=help:norl:
