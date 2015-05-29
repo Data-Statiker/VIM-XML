@@ -1,13 +1,23 @@
 "  xmlexpander.vim: (plugin) Read a XML and give it out formatted
-"  Last Change: Sat Apr 19 08:55 PM 2015 MET
+"  Last Change: Fri Apr 29 09:10 PM 2015 MET
+"  Author:	Data-Statiker
 "  Maintainer:  Data-Statiker
-"  Version:     0.3, for Vim 7.4+
+"  Version:     0.4, for Vim 7.4+
 
 " Whats New:
+" Version 0.4
+" *	Bugfix Whitespace between xml-tags creates no ">" anymore
+"
 " Version 0.3
 " *	New name: xmlexpander
 " *	Redefine functions and variables (xmlexpander)
-" *	New function xmlexpander#isContentText(text) to check if a text has to be harmonized
+" *	New function xmlexpander#isContentText(text) to check if a 
+"       text has to be harmonized
+
+" TODO
+" - Check XML syntax. When sytax is not correct don't start the XMLExpander
+" - Check if the sign ">" is in a content text
+" - Delete Whitespace after ">", when after the ">" only whitepspace exists
 
 " Function that writes the xml in the current window
 :function! xmlexpander#write(xmlContent)
@@ -84,7 +94,8 @@
 	:let harmonize = xmlexpander#isContentText(repl3)
 
 	:if harmonize == "false"
-
+                
+	        " Delete Whitespace before opening tag
 		:let x = 0
 		:for x in range (0,pos)
 			:if (strpart(repl3,0,1) == " ") || (strpart(repl3,0,1) == "\t")
@@ -95,9 +106,12 @@
 		:endfor
 		:unlet x
 
-	:endif
+		" Delete whitespace after the ending tag
+		:let repl3 = substitute(repl3,'\s\+$','','g')
 
+	:endif
 	:unlet pos
+
 	:return repl3	
 :endf
 
@@ -137,10 +151,12 @@
 		:let a = 0
 		:for a in range (0, len(bufferLine)-1)
 
-			:let repl = xmlexpander#harmonize(bufferLine[a])
-			:call add(buffer,repl.">")
+		        :if bufferLine[a] !~ '^\s*$'
+				:let repl = xmlexpander#harmonize(bufferLine[a])
+				:call add(buffer,repl.">")
+				:unlet repl
+			:endif
 
-			:unlet repl
 		:endfor
 		:unlet a
 
@@ -148,7 +164,28 @@
 	
 	:endwhile
 	:unlet i
+	
+	:let xmlSyntax = xmlexpander#CheckXmlSyntax(buffer)
+	:if xmlSyntax == "true"
+		:call xmlexpander#write(buffer)
+	:endif
 
-	:call xmlexpander#write(buffer)
+:endf
 
+:function! xmlexpander#CheckXmlSyntax(xmlContent)
+
+	:let xmlSyntax = "true"
+	:let xmlString = ""
+
+	" Build a String for the whole XML
+	:for item in a:xmlContent
+		:let xmlString = xmlString.item
+	:endfor
+
+	" Delete Whitespace
+	:let xmlString = substitute(xmlString," ","","g")
+	:let xmlString = substitute(xmlString,"\t","","g")
+
+	:return xmlSyntax
+	
 :endf

@@ -22,10 +22,14 @@ For further details read the vim help file doc/xmlexpander.txt
 or in VIM :help xmlexpander
 
 ### Whats New
+
+Version 0.4
+- Bugfix Whitespace between xml-tags creates no ">" anymore
+
 Version 0.3
--	New name: xmlexpander
--	Redefine functions and variables (xmlexpander)
--	New function xmlexpander#isContentText(text) to check if a text has to be harmonized
+- New name: xmlexpander
+- Redefine functions and variables (xmlexpander)
+- New function xmlexpander#isContentText(text) to check if a text has to be harmonized
 
 
 ### Installation

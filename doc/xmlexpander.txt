@@ -1,13 +1,19 @@
 " vim: filetype=help foldmethod=marker foldmarker=<<<,>>> nomodifiable readonly
-*xmlexpander.txt*   For Vim version 7.4.  Last change: 2015 Apr 18
+*xmlexpander.txt*   For Vim version 7.4.  Last change: 2015 Mai 29
 
+ ____  ___       .__  ___________                                .___            
+ \   \/  / _____ |  | \_   _____/__  ______________    ____    __| _/___________ 
+  \     / /     \|  |  |    __)_\  \/  /\____ \__  \  /    \  / __ |/ __ \_  __ \
+  /     \|  Y Y  \ \|__|        \>    < |  |_> > __ \|   |  \/ /_/ \  ___/|  | \/
+ /___/\  \_\|_|  /____/_______  /__/\_ \|   __(____  /___|  /\____ |\___  >__|   
+       \_/     \/             \/      \\|__|       \/     \/      \/    \/       
 
                 	  VIM REFERENCE MANUAL 
                                 by 
                            Data Statiker
 
 	  	XMLExpander plugin "Pretty Printer" (xmlexpander.vim) manual
-	  	xmlexpander.vim version 0.3
+	  	xmlexpander.vim version 0.4
 
 For instructions on installing this file, type
 	:help add-local-help
@@ -45,11 +51,17 @@ To run the XMLExpander do the following:
 
 Now you have a pretty printed XML file (in the same VIM window!).
 
-Warning:
-The XML File must be syntactical correct! The script do not check this.
+   +-----------------------------------------+
+   |Note:                                    |
+   |The XML File must be syntactical correct!|
+   |The script do not check this.            |
+   +-----------------------------------------+
 
 ==============================================================================
 2.  Whats New					       *xmlexpander-new*
+
+Version 0.4
+*	Bugfix Whitespace between xml-tags creates no ">" anymore
 
 Version 0.3
 *	New name: xmlexpander
@@ -133,8 +145,8 @@ Example 1:
 ***********
 
 Example of an XML before running the XMLExpander: 
-<?xml/><? some text/><Test id="First"><Testcase><TA id="1">one</TB>  | line 1	
-<TB>two</TB></Testcase><Testcase>	<TA>one</TB><TB>two</TB>     | line 2
+<?xml/><? some text/><Test id="First"><Testcase><TA id="1">one</TA>  | line 1	
+<TB>two</TB></Testcase><Testcase>	<TA>one</TA><TB>two</TB>     | line 2
 </Testcase>  <Testcase>    three</Testcase><Testcase/></Test>        | line 3
 
 The XML after running the XMLExpander looks like this:
@@ -142,11 +154,11 @@ The XML after running the XMLExpander looks like this:
 <? some text/>                                                       | line 2
 <Test id="First">                                                    | line 3
 	<Testcase>                                                   | line 4
-		<TA id="1">one</TB>                                  | line 5
+		<TA id="1">one</TA>                                  | line 5
 		<TB>two</TB>                                         | line 6
 	</Testcase>                                                  | line 7
 	<Testcase>                                                   | line 8
-		<TA>one</TB>                                         | line 9
+		<TA>one</TA>                                         | line 9
 		<TB>two</TB>                                         | line 10
 	</Testcase>                                                  | line 11
 	<Testcase>    three</Testcase>                               | line 12
@@ -161,11 +173,11 @@ Example of an XML before running the XMLExpander:
 <? some text/>                                                       | line 2
 <Test id="First">                                                    | line 3
 <Testcase>                                                           | line 4
-<TA id="1">one</TB>                                                  | line 5
+<TA id="1">one</TA>                                                  | line 5
 <TB>two</TB>                                                         | line 6
 </Testcase>                                                          | line 7
 <Testcase>                                                           | line 8
-<TA>one</TB>                                                         | line 9
+<TA>one</TA>                                                         | line 9
 <TB>two</TB>                                                         | line 10
 </Testcase>                                                          | line 11
 <Testcase>    three</Testcase>                                       | line 12
@@ -177,11 +189,11 @@ The XML after running the XMLExpander looks like this:
 <? some text/>                                                       | line 2
 <Test id="First">                                                    | line 3
 	<Testcase>                                                   | line 4
-		<TA id="1">one</TB>                                  | line 5
+		<TA id="1">one</TA>                                  | line 5
 		<TB>two</TB>                                         | line 6
 	</Testcase>                                                  | line 7
 	<Testcase>                                                   | line 8
-		<TA>one</TB>                                         | line 9
+		<TA>one</TA>                                         | line 9
 		<TB>two</TB>                                         | line 10
 	</Testcase>                                                  | line 11
 	<Testcase>    three</Testcase>                               | line 12
